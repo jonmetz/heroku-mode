@@ -21,7 +21,7 @@ def key_bindings(commands):
     taken = 'aclop'
     key_nums = xrange(ord('A'), ord('z'))
     keys = [chr(num) for num in key_nums]
-    open_keys = [key for key in keys if key not in taken]
+    open_keys = [key for key in keys if key not in taken and key.isalpha()] # Less special chars
     key_binding_funcs = []
     for command in commands:
         key = pick_key_binding_letter(cmd, open_keys)
@@ -42,18 +42,22 @@ def pick_key_binding_letter(cmd, open_keys):
         print "NOT ENOUGH KEYS"
         raise Exception
     else:
-        return open_keys[0]
+        reverse_keys = open_keys[::-1] # choose uppercase only if easy to remember
+        return reverse_keys[0]
 
-def create_elisp_cmd(cmd):
-    return '(defun heroku-mode-%s()\n\t(interactive)\n\t(shell-command "%s")\n)\n\n' % (cmd, cmd)
+def create_elisp_cmd(commmented_cmd):
+    return '(defun heroku-mode-%s()\n\t"%s"\n\t(interactive)\n\t(shell-command "%s")\n)\n\n' % (commmented_cmd[0], commmented_cmd[1], commmented_cmd[0])
     
 
 if __name__=='__main__':
     text = open("help.txt").read()
     commands_text_list = parse_list(text, ":\n\n", "\n\n")
     commands_text = "\n"+commands_text_list[0] + commands_text_list[1]
+    command_docs = parse_list(commands_text, "#  ", "\n")
+    command_docs = [cmd_doc.strip(' ') for cmd_doc in command_docs]
     commands = parse_list(commands_text,"\n  ", "#  ")
     commands = [cmd.strip(' ') for cmd in commands]
-    elisp = ''.join([create_elisp_cmd(command) for command in commands])
+    commented_cmds = zip(commands, command_docs)
+    elisp = ''.join([create_elisp_cmd(commented_cmd) for commented_cmd in commented_cmds])
     elisp += ''.join(key_bindings(commands))
-    print elisp
+
