@@ -28,7 +28,7 @@ def key_bindings(commands):
         
 
 def gen_key_binding_func(cmd, key):
-    return '(global-set-key (kbd "C-c %s") \'%s)\n' % (key, cmd)
+    return '(global-set-key (kbd "C-c %s") \'heroku-mode-%s)\n' % (key, cmd)
 
 def is_in(letter, string):
     if letter in string:
