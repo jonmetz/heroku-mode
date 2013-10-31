@@ -59,20 +59,6 @@ def create_elisp_option_cmd(commented_cmd):
     el_func += "(format \"%s:%%s\" arg))\n\t\t\t(heroku-mode-execute \"%s\")))\n\n" % (commented_cmd[0], commented_cmd[0])
     return el_func
 
-"""
-def top_lvl_elisp():
-    text = open("help.txt").read()
-    commands_text_list = parse_list(text, ":\n\n", "\n\n")
-    commands_text = "\n"+commands_text_list[0] + '\n' + commands_text_list[1]
-    command_docs = parse_list(commands_text, "#  ", "\n")
-    command_docs = [cmd_doc.strip(' ') for cmd_doc in command_docs]
-    commands = parse_list(commands_text,"\n  ", "#  ")
-    commands = [cmd.strip(' ') for cmd in commands]
-    commented_cmds = zip(commands, command_docs)
-    elisp = ''.join([create_elisp_cmd(commented_cmd) for commented_cmd in commented_cmds])
-    elisp += ''.join(key_bindings(commands))
-    print elisp
-"""
 
 if __name__=="__main__":
     text = open("help.txt").read()
