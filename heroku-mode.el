@@ -14,7 +14,7 @@
 (defun heroku-mode-open()
   "Opens default app homepage on default web browser"
   (interactive)
-  (shell-command "heroku open" ))
+  (heroku-mode-execute "open"))
 
 (defun heroku-mode-push()
   "Deploys app to Heroku"
@@ -23,8 +23,8 @@
 
 (defun heroku-mode-execute (cmd)
 	 (if (not (string-equal heroku-mode-app ""))
-	     (shell-command (format "%s --app %s" cmd heroku-mode-app))
-	   (shell-command cmd)))
+	     (shell-command (format "heroku %s --app %s" cmd heroku-mode-app))
+	   (shell-command (format "heroku %s" cmd))))
 
 (defun heroku-mode-set-app(app-name)
   "Set the name of the app with which all other functions will be called"
