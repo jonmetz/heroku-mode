@@ -242,3 +242,5 @@
 (global-set-key (kbd "C-c T") 'heroku-mode-status)
 (global-set-key (kbd "C-c y") 'heroku-mode-update)
 (global-set-key (kbd "C-c v") 'heroku-mode-version)
+
+(provide 'heroku-mode)
