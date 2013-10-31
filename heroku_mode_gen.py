@@ -5,7 +5,6 @@ def parse_list(string, sub1, sub2):
         string = string[string.index(l[-1])+len(sub2):]
     l.remove('')
     return l
-    
 
 def return_between(string, sub1, sub2):
     try:
@@ -50,9 +49,8 @@ def pick_key_binding_letter(cmd, open_keys):
     return reverse_keys[0]
 
 def create_elisp_cmd(commmented_cmd):
-    return '(defun heroku-mode-%s()\n\t"%s"\n\t(interactive)\n\t(shell-command "heroku %s")\n)\n\n' % (commmented_cmd[0], commmented_cmd[1], commmented_cmd[0])
+    return '(defun heroku-mode-%s()\n\t"%s"\n\t(interactive)\n\t(shell-command "heroku %s"))\n\n' % (commmented_cmd[0], commmented_cmd[1], commmented_cmd[0])
     
-
 if __name__=='__main__':
     text = open("help.txt").read()
     commands_text_list = parse_list(text, ":\n\n", "\n\n")
