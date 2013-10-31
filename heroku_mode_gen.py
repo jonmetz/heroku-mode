@@ -1,5 +1,3 @@
-import re
-
 def parse_list(string, sub1, sub2):
     l = []
     while "" not in l:
