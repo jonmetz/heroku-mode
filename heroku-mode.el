@@ -5,7 +5,7 @@
 ;; I'm completely open to changing any of these keybindings based on convenience 
 ;; due to certain commands being more frequently used than others.
 
-(defvar heroku-mode-keymap (make-keymap) "herok-mode keymap.")
+(defvar heroku-mode-keymap (make-keymap) "heroku-mode keymap.")
 (define-key heroku-mode-keymap (kbd "C-c o") 'heroku-mode-open)
 (define-key heroku-mode-keymap (kbd "C-c p") 'heroku-mode-push)
 (define-key heroku-mode-keymap (kbd "C-c s") 'heroku-mode-set-app)
@@ -70,22 +70,32 @@
   (interactive)
   (shell-command "git push heroku master"))
 
+(defun heroku-mode-fork(&optional arg)
+  "clone an existing app"
+  (interactive "sEnter option(s) and any necessary arguments: ")
+  (if (not (equal arg ""))
+      (heroku-mode-execute(format "fork %s" arg))
+    (heroku-mode-execute "fork")))
+
+(defun heroku-mode-help(&optional arg)
+  "list commands and display help"
+  (interactive "sEnter option(s) and any necessary arguments: ")
+  (if (not (equal arg ""))
+      (heroku-mode-execute(format "help %s" arg))
+    (heroku-mode-execute "help")))
+
+;; Added in manually due to bug in heroku_gen
+(defun heroku-mode-version()
+  "Check version of heroku commandline tool"
+  (interactive)
+  (heroku-mode-execute "version"))
+
 ;; Machine-generated functions, followed by their keybindings, created by heroku_mode_gen.py
 
 (defun heroku-mode-logs()
   "display logs for an app"
   (interactive)
   (heroku-mode-execute "logs"))
-
-(defun heroku-mode-fork()
-  "clone an existing app"
-  (interactive)
-  (heroku-mode-execute "fork"))
-
-(defun heroku-mode-help()
-  "list commands and display help"
-  (interactive)
-  (heroku-mode-execute "help"))
 
 (defun heroku-mode-regions()
   "list available regions"
@@ -96,12 +106,6 @@
   "check status of heroku platform"
   (interactive)
   (heroku-mode-execute "status"))
-
-;; Added in manually
-(defun heroku-mode-version()
-  "Check version of heroku commandline tool"
-  (interactive)
-  (heroku-mode-execute "version"))
 
 (defun heroku-mode-addons(&optional arg)
   "manage addon resources"
