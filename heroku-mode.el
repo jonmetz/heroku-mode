@@ -2,47 +2,62 @@
 
 ;; Version 0.0.1
 
+;; I'm completely open to changing any of these keybindings based on convenience 
+;; due to certain commands being more frequently used than others.
+
+(defvar heroku-mode-keymap (make-keymap) "herok-mode keymap.")
+(define-key heroku-mode-keymap (kbd "C-c o") 'heroku-mode-open)
+(define-key heroku-mode-keymap (kbd "C-c p") 'heroku-mode-push)
+(define-key heroku-mode-keymap (kbd "C-c s") 'heroku-mode-set-app)
+
+;; Machine Generated
+(define-key heroku-mode-keymap (kbd "C-c A") 'heroku-mode-addons)
+(define-key heroku-mode-keymap (kbd "C-c P") 'heroku-mode-apps)
+(define-key heroku-mode-keymap (kbd "C-c u") 'heroku-mode-auth)
+(define-key heroku-mode-keymap (kbd "C-c C") 'heroku-mode-config)
+(define-key heroku-mode-keymap (kbd "C-c d") 'heroku-mode-domains)
+(define-key heroku-mode-keymap (kbd "C-c L") 'heroku-mode-logs)
+(define-key heroku-mode-keymap (kbd "C-c S") 'heroku-mode-ps)
+(define-key heroku-mode-keymap (kbd "C-c r") 'heroku-mode-releases)
+(define-key heroku-mode-keymap (kbd "C-c R") 'heroku-mode-run)
+(define-key heroku-mode-keymap (kbd "C-c h") 'heroku-mode-sharing)
+(define-key heroku-mode-keymap (kbd "C-c O") 'heroku-mode-account)
+(define-key heroku-mode-keymap (kbd "C-c e") 'heroku-mode-certs)
+(define-key heroku-mode-keymap (kbd "C-c D") 'heroku-mode-drains)
+(define-key heroku-mode-keymap (kbd "C-c f") 'heroku-mode-fork)
+(define-key heroku-mode-keymap (kbd "C-c g") 'heroku-mode-git)
+(define-key heroku-mode-keymap (kbd "C-c H") 'heroku-mode-help)
+(define-key heroku-mode-keymap (kbd "C-c k") 'heroku-mode-keys)
+(define-key heroku-mode-keymap (kbd "C-c b") 'heroku-mode-labs)
+(define-key heroku-mode-keymap (kbd "C-c m") 'heroku-mode-maintenance)
+(define-key heroku-mode-keymap (kbd "C-c G") 'heroku-mode-pg)
+(define-key heroku-mode-keymap (kbd "C-c B") 'heroku-mode-pgbackups)
+(define-key heroku-mode-keymap (kbd "C-c U") 'heroku-mode-plugins)
+(define-key heroku-mode-keymap (kbd "C-c E") 'heroku-mode-regions)
+(define-key heroku-mode-keymap (kbd "C-c t") 'heroku-mode-stack)
+(define-key heroku-mode-keymap (kbd "C-c T") 'heroku-mode-status)
+(define-key heroku-mode-keymap (kbd "C-c y") 'heroku-mode-update)
+(define-key heroku-mode-keymap (kbd "C-c v") 'heroku-mode-version)
+
 (define-minor-mode heroku-mode
   "A mode to improve workflow with the heroku command line tool"
   :version "0.0.1"
 ;; Keybindings for the above Heroku commands in elisp
 ;; Did not start with most intuitive prefix (C-h) since this is reserved for help in emacs.
-  :keymap (let ((map (make-sparse-keymap)))	    
-            (define-key map (kbd "C-c o") 'heroku-mode-open)
-	    (global-set-key (kbd "C-c p") 'heroku-mode-push)
-	    (global-set-key (kbd "C-c s") 'heroku-mode-set-app)
-	    ;; Keybindings from here on are machine generated
-	    (define-key map (kbd "C-c A") 'heroku-mode-addons)
-	    (define-key map (kbd "C-c P") 'heroku-mode-apps)
-	    (define-key map (kbd "C-c u") 'heroku-mode-auth)
-	    (define-key map (kbd "C-c C") 'heroku-mode-config)
-	    (define-key map (kbd "C-c d") 'heroku-mode-domains)
-	    (define-key map (kbd "C-c L") 'heroku-mode-logs)
-	    (define-key map (kbd "C-c S") 'heroku-mode-ps)
-	    (define-key map (kbd "C-c r") 'heroku-mode-releases)
-	    (define-key map (kbd "C-c R") 'heroku-mode-run)
-	    (define-key map (kbd "C-c h") 'heroku-mode-sharing)
-	    (define-key map (kbd "C-c O") 'heroku-mode-account)
-	    (define-key map (kbd "C-c e") 'heroku-mode-certs)
-	    (define-key map (kbd "C-c D") 'heroku-mode-drains)
-	    (define-key map (kbd "C-c f") 'heroku-mode-fork)
-	    (define-key map (kbd "C-c g") 'heroku-mode-git)
-	    (define-key map (kbd "C-c H") 'heroku-mode-help)
-	    (define-key map (kbd "C-c k") 'heroku-mode-keys)
-	    (define-key map (kbd "C-c b") 'heroku-mode-labs)
-	    (define-key map (kbd "C-c m") 'heroku-mode-maintenance)
-	    (define-key map (kbd "C-c G") 'heroku-mode-pg)
-	    (define-key map (kbd "C-c B") 'heroku-mode-pgbackups)
-	    (define-key map (kbd "C-c U") 'heroku-mode-plugins)
-	    (define-key map (kbd "C-c E") 'heroku-mode-regions)
-	    (define-key map (kbd "C-c t") 'heroku-mode-stack)
-	    (define-key map (kbd "C-c T") 'heroku-mode-status)
-	    (define-key map (kbd "C-c y") 'heroku-mode-update)
-	    (define-key map (kbd "C-c v") 'heroku-mode-version)
-            map))
-
+  :keymap heroku-mode-keymap)
 ;; Set app to "" if not specified (Heroku will use an app declared in current directory
 (setq heroku-mode-app "")
+
+(defun heroku-mode-execute (cmd)
+	 (if (not (string-equal heroku-mode-app ""))
+	     (shell-command (format "heroku %s --app %s" cmd heroku-mode-app))
+	   (shell-command (format "heroku %s" cmd))))
+
+(defun heroku-mode-set-app(app-name)
+  "Set the name of the app with which all other functions will be called"
+  (interactive "sEnter app's name: ")
+  (setq heroku-mode-app (format "%s" app-name)))
+
 ;; Heroku tool commands
 
 (defun heroku-mode-open()
@@ -54,16 +69,6 @@
   "Deploys app to Heroku"
   (interactive)
   (shell-command "git push heroku master"))
-
-(defun heroku-mode-execute (cmd)
-	 (if (not (string-equal heroku-mode-app ""))
-	     (shell-command (format "heroku %s --app %s" cmd heroku-mode-app))
-	   (shell-command (format "heroku %s" cmd))))
-
-(defun heroku-mode-set-app(app-name)
-  "Set the name of the app with which all other functions will be called"
-  (interactive "sEnter app's name: ")
-  (setq heroku-mode-app (format "%s" app-name)))
 
 ;; Machine-generated functions, followed by their keybindings, created by heroku_mode_gen.py
 
@@ -244,8 +249,5 @@
   (if (not (equal arg ""))
       (heroku-mode-execute(format "update:%s" arg))
     (heroku-mode-execute "update")))
-
-;; I'm completely open to changing any of these keybindings based on convenience 
-;; due to certain commands being more frequently used than others.
 
 (provide 'heroku-mode)
