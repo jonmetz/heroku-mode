@@ -1,0 +1,30 @@
+List of commands and corresponding key bindings:
+
+Command:          Key Binding:
+addons 		  C-c A
+apps 		  C-c P
+auth 		  C-c u
+config 		  C-c C
+domains 	  C-c d
+logs 		  C-c L
+ps 		  C-c S
+releases 	  C-c r
+run 		  C-c R
+sharing 	  C-c h
+account 	  C-c O
+certs 		  C-c e
+drains 		  C-c D
+fork 		  C-c f
+git 		  C-c g
+help 		  C-c H
+keys 		  C-c k
+labs 		  C-c b
+maintenance 	  C-c m
+pg 		  C-c G
+pgbackups 	  C-c B
+plugins 	  C-c U
+regions 	  C-c E
+stack 		  C-c t
+status 		  C-c T
+update 		  C-c y
+version 	  C-c v
