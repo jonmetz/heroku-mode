@@ -92,6 +92,12 @@
   (interactive)
   (heroku-mode-execute "status"))
 
+;; Added in manually
+(defun heroku-mode-version()
+  "Check version of heroku commandline tool"
+  (interactive)
+  (heroku-mode-execute "version"))
+
 (defun heroku-mode-addons(&optional arg)
   "manage addon resources"
   (interactive "sEnter option(s) and any necessary arguments: ")
