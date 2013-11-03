@@ -6,7 +6,7 @@
   "A mode to improve workflow with the heroku command line tool"
   :version "0.0.1")
 
-;; Set app to "" if not specified
+;; Set app to "" if not specified (Heroku will use an app decalred in current directory
 (setq heroku-mode-app "")
 
 ;; Heroku tool commands
