@@ -86,6 +86,6 @@ if __name__=="__main__":
     print "Command:          Key Binding:"
     docs = code_and_docs[1]
     for doc in docs:
-        print doc[0] +"          C-c "+ doc[1]
+        print doc[0] +" C-c "+ doc[1]
         
         
