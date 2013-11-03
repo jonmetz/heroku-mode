@@ -5,6 +5,8 @@
 ;; I'm completely open to changing any of these keybindings based on convenience 
 ;; due to certain commands being more frequently used than others.
 
+(require 'easymenu)
+
 (defvar heroku-mode-keymap (make-keymap) "heroku-mode keymap.")
 (define-key heroku-mode-keymap (kbd "C-c o") 'heroku-mode-open)
 (define-key heroku-mode-keymap (kbd "C-c p") 'heroku-mode-push)
@@ -254,4 +256,18 @@
       (heroku-mode-execute(format "update:%s" arg))
     (heroku-mode-execute "update")))
 
+
+(easy-menu-define heroku-menu heroku-mode-keymap "Heroku menu"
+  '("Heroku"
+    ["Set your app/View your apps" heroku-mode-app t]
+    ["Open your app in a webbrowser" heroku-mode-open t]
+    ["Deploy your app to heroku" heroku-mode-push t]
+    ["View your app's logs" heroku-mode-logs t]
+    ))
+
+(easy-menu-add heroku-menu heroku-mode-keymap)
+
+
 (provide 'heroku-mode)
+
+

@@ -1,2 +1,0 @@
-1. Loading twenty functions into the global emacs namespace shouldn't be what this does when it is loaded.
-A few important functions should be loaded, and the rest should only be loaded once heroku-mode is activated.
