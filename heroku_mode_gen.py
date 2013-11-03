@@ -21,14 +21,15 @@ def key_bindings(commands):
     key_nums = xrange(ord('A'), ord('z'))
     keys = [chr(num) for num in key_nums]
     open_keys = [key for key in keys if key not in taken and key.isalpha()] # Less special chars
+    key_binding_list = [] # For documentation purposes
     key_binding_funcs = []
     for command in commands:
         key = pick_key_binding_letter(command, open_keys)
+        key_binding_list.append((command, key))
         open_keys.remove(key)
         key_binding_funcs.append(gen_key_binding_func(command, key))
-    return key_binding_funcs
-        
-
+    return (key_binding_funcs, key_binding_list)
+    
 def gen_key_binding_func(cmd, key):
     return '(global-set-key (kbd "C-c %s") \'heroku-mode-%s)\n' % (key, cmd)
 
@@ -78,5 +79,13 @@ if __name__=="__main__":
     option_cmds = [cmd for cmd in commented_cmds if cmd not in simple_cmds]
     elisp = ''.join([create_elisp_simple_cmd(simple_cmd) for simple_cmd in simple_cmds])
     elisp += ''.join([create_elisp_option_cmd(option_cmd) for option_cmd in option_cmds])
-    elisp += ''.join(key_bindings(commands))
+    code_and_docs = key_bindings(commands)
+    elisp += ''.join(code_and_docs[0])
     print elisp
+    print "\n\nList of commands and corresponding key bindings:\n"
+    print "Command:          Key Binding:"
+    docs = code_and_docs[1]
+    for doc in docs:
+        print doc[0] +"          C-c "+ doc[1]
+        
+        
