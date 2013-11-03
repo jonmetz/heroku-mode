@@ -4,11 +4,45 @@
 
 (define-minor-mode heroku-mode
   "A mode to improve workflow with the heroku command line tool"
-  :version "0.0.1")
+  :version "0.0.1"
+;; Keybindings for the above Heroku commands in elisp
+;; Did not start with most intuitive prefix (C-h) since this is reserved for help in emacs.
+  :keymap (let ((map (make-sparse-keymap)))	    
+            (define-key map (kbd "C-c o") 'heroku-mode-open)
+	    (global-set-key (kbd "C-c p") 'heroku-mode-push)
+	    (global-set-key (kbd "C-c s") 'heroku-mode-set-app)
+	    ;; Keybindings from here on are machine generated
+	    (define-key map (kbd "C-c A") 'heroku-mode-addons)
+	    (define-key map (kbd "C-c P") 'heroku-mode-apps)
+	    (define-key map (kbd "C-c u") 'heroku-mode-auth)
+	    (define-key map (kbd "C-c C") 'heroku-mode-config)
+	    (define-key map (kbd "C-c d") 'heroku-mode-domains)
+	    (define-key map (kbd "C-c L") 'heroku-mode-logs)
+	    (define-key map (kbd "C-c S") 'heroku-mode-ps)
+	    (define-key map (kbd "C-c r") 'heroku-mode-releases)
+	    (define-key map (kbd "C-c R") 'heroku-mode-run)
+	    (define-key map (kbd "C-c h") 'heroku-mode-sharing)
+	    (define-key map (kbd "C-c O") 'heroku-mode-account)
+	    (define-key map (kbd "C-c e") 'heroku-mode-certs)
+	    (define-key map (kbd "C-c D") 'heroku-mode-drains)
+	    (define-key map (kbd "C-c f") 'heroku-mode-fork)
+	    (define-key map (kbd "C-c g") 'heroku-mode-git)
+	    (define-key map (kbd "C-c H") 'heroku-mode-help)
+	    (define-key map (kbd "C-c k") 'heroku-mode-keys)
+	    (define-key map (kbd "C-c b") 'heroku-mode-labs)
+	    (define-key map (kbd "C-c m") 'heroku-mode-maintenance)
+	    (define-key map (kbd "C-c G") 'heroku-mode-pg)
+	    (define-key map (kbd "C-c B") 'heroku-mode-pgbackups)
+	    (define-key map (kbd "C-c U") 'heroku-mode-plugins)
+	    (define-key map (kbd "C-c E") 'heroku-mode-regions)
+	    (define-key map (kbd "C-c t") 'heroku-mode-stack)
+	    (define-key map (kbd "C-c T") 'heroku-mode-status)
+	    (define-key map (kbd "C-c y") 'heroku-mode-update)
+	    (define-key map (kbd "C-c v") 'heroku-mode-version)
+            map))
 
 ;; Set app to "" if not specified (Heroku will use an app declared in current directory
 (setq heroku-mode-app "")
-
 ;; Heroku tool commands
 
 (defun heroku-mode-open()
@@ -30,13 +64,6 @@
   "Set the name of the app with which all other functions will be called"
   (interactive "sEnter app's name: ")
   (setq heroku-mode-app (format "%s" app-name)))
-
-;; Keybindings for the above Heroku commands in elisp
-;; Did not start with most intuitive prefix (C-h) since this is reserved for help in emacs.
-
-(global-set-key (kbd "C-c o") 'heroku-mode-open)
-(global-set-key (kbd "C-c p") 'heroku-mode-push)
-(global-set-key (kbd "C-c s") 'heroku-mode-set-app)
 
 ;; Machine-generated functions, followed by their keybindings, created by heroku_mode_gen.py
 
@@ -214,33 +241,5 @@
 
 ;; I'm completely open to changing any of these keybindings based on convenience 
 ;; due to certain commands being more frequently used than others.
-
-(global-set-key (kbd "C-c A") 'heroku-mode-addons)
-(global-set-key (kbd "C-c P") 'heroku-mode-apps)
-(global-set-key (kbd "C-c u") 'heroku-mode-auth)
-(global-set-key (kbd "C-c C") 'heroku-mode-config)
-(global-set-key (kbd "C-c d") 'heroku-mode-domains)
-(global-set-key (kbd "C-c L") 'heroku-mode-logs)
-(global-set-key (kbd "C-c S") 'heroku-mode-ps)
-(global-set-key (kbd "C-c r") 'heroku-mode-releases)
-(global-set-key (kbd "C-c R") 'heroku-mode-run)
-(global-set-key (kbd "C-c h") 'heroku-mode-sharing)
-(global-set-key (kbd "C-c O") 'heroku-mode-account)
-(global-set-key (kbd "C-c e") 'heroku-mode-certs)
-(global-set-key (kbd "C-c D") 'heroku-mode-drains)
-(global-set-key (kbd "C-c f") 'heroku-mode-fork)
-(global-set-key (kbd "C-c g") 'heroku-mode-git)
-(global-set-key (kbd "C-c H") 'heroku-mode-help)
-(global-set-key (kbd "C-c k") 'heroku-mode-keys)
-(global-set-key (kbd "C-c b") 'heroku-mode-labs)
-(global-set-key (kbd "C-c m") 'heroku-mode-maintenance)
-(global-set-key (kbd "C-c G") 'heroku-mode-pg)
-(global-set-key (kbd "C-c B") 'heroku-mode-pgbackups)
-(global-set-key (kbd "C-c U") 'heroku-mode-plugins)
-(global-set-key (kbd "C-c E") 'heroku-mode-regions)
-(global-set-key (kbd "C-c t") 'heroku-mode-stack)
-(global-set-key (kbd "C-c T") 'heroku-mode-status)
-(global-set-key (kbd "C-c y") 'heroku-mode-update)
-(global-set-key (kbd "C-c v") 'heroku-mode-version)
 
 (provide 'heroku-mode)
