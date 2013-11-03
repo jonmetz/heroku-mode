@@ -31,9 +31,10 @@ def key_bindings(commands):
     return (key_binding_funcs, key_binding_list)
     
 def gen_key_binding_func(cmd, key):
-    return '(define-key map (kbd "C-c %s") \'heroku-mode-%s)\n'  % (key, cmd)
+    #return '(define-key map (kbd "C-c %s") \'heroku-mode-%s)\n'  % (key, cmd)
     #return '(global-set-key (kbd "C-c %s") \'heroku-mode-%s)\n' % (key, cmd)
-
+    return '(define-key heroku-mode-keymap (kbd "C-c %s") \'heroku-mode-%s)\n'  % (key, cmd)
+    
 def is_in(letter, string):
     if letter in string:
         return letter
@@ -68,7 +69,7 @@ if __name__=="__main__":
     commands_text = "\n"+commands_text_list[0] + '\n\n' + commands_text_list[1]
     #print commands_text
     command_docs = parse_list(commands_text, "#  ", "\n")
-    print command_docs
+    #print command_docs
     command_docs = [cmd_doc.strip(' ') for cmd_doc in command_docs]
     commands = parse_list(commands_text,"\n  ", "#  ")
     commands = [cmd.strip(' ') for cmd in commands]
@@ -84,8 +85,8 @@ if __name__=="__main__":
     elisp += ''.join([create_elisp_option_cmd(option_cmd) for option_cmd in option_cmds])
     code_and_docs = key_bindings(commands)
     elisp += ''.join(code_and_docs[0])
-    """print elisp
-    print "\n\nList of commands and corresponding key bindings:\n"
+    print elisp
+    """print "\n\nList of commands and corresponding key bindings:\n"
     print "Command:          Key Binding:"
     docs = code_and_docs[1]
     for doc in docs:
