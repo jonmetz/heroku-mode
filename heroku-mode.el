@@ -259,7 +259,7 @@
 
 (easy-menu-define heroku-menu heroku-mode-keymap "Heroku menu"
   '("Heroku"
-    ["Set your app/View your apps" heroku-mode-app t]
+    ["Set your app/View your apps" heroku-mode-apps t]
     ["Open your app in a webbrowser" heroku-mode-open t]
     ["Deploy your app to heroku" heroku-mode-push t]
     ["View your app's logs" heroku-mode-logs t]
